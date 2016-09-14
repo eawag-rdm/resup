@@ -26,7 +26,7 @@ by providing a regular expression to select resource names.
 
 resup.py {[put](#user-content-put) | [get](#user-content-put) | [list](#user-content-list) | [del](#user-content-del)} -h for specific help on subcommands.
 
-PUT-------
+-------
 <a id="put"></a>
 
     resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
