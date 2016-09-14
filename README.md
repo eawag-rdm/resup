@@ -1,9 +1,9 @@
-# resup.py
+# resup
 
 + Batch upload of resources to data package in CKAN.
 + Batch download and deletion from data package in CKAN.
 
-**resup.py** handles compression, creation of a tar-archive,
+**resup** handles compression, creation of a tar-archive,
 checksumming, splitting of large files for upload, and
 re-assemblage of thusly splitted files upon download.
 
@@ -16,7 +16,7 @@ by providing a regular expression to select resource names.
 
 ##Usage:
 
-    resup.py [-h] {put,get,list,del} ...
+    resup [-h] {put,get,list,del} ...
 
     positional arguments:
 	  {put,get,list,del}  subcommands
@@ -28,12 +28,12 @@ by providing a regular expression to select resource names.
     optional arguments:
     -h, --help          show this help message and exit
 
-resup.py {[put](#user-content-put) | [get](#user-content-put) | [list](#user-content-list) | [del](#user-content-del)} -h for specific help on subcommands.
+resup {[put](#user-content-put) | [get](#user-content-put) | [list](#user-content-list) | [del](#user-content-del)} -h for specific help on subcommands.
 
 -------
 <a id="put"></a>
 
-    resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
+    resup put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
                     [--maxfilesize MAXFILESIZE] [--keepdummy] [--noclean]
                     PACKAGENAME [DIRECTORY]
 
@@ -65,7 +65,7 @@ resup.py {[put](#user-content-put) | [get](#user-content-put) | [list](#user-con
 ------
 <a id="list"></a>
 
-    resup.py get [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [DIRECTORY] [RESOURCES]
+    resup get [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [DIRECTORY] [RESOURCES]
 
 	Bulk download resources of a package in CKAN.
 
@@ -86,7 +86,7 @@ resup.py {[put](#user-content-put) | [get](#user-content-put) | [list](#user-con
  ------
  <a id="list"></a>
  
-    resup.py list [-h] [-s SERVER] [-k API_KEY]
+    resup list [-h] [-s SERVER] [-k API_KEY]
 
     List the packages that you can modify.
 
@@ -100,7 +100,7 @@ resup.py {[put](#user-content-put) | [get](#user-content-put) | [list](#user-con
 ------
 <a id="del"></a>
 
-	resup.py del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
+	resup del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
 
 	Batch delete resoures of a package in CKAN.
 
