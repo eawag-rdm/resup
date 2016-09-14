@@ -12,17 +12,17 @@ by providing a regular expression to select resource names.
 
 **Usage:**
 
-		resup.py [-h] {put,get,list,del} ...
+    resup.py [-h] {put,get,list,del} ...
 
-		positional arguments:
-		  {put,get,list,del}  subcommands
-			put               upload ressources
-			get               download ressources
-			list              list your packages
-			del               delete resources
+    positional arguments:
+	  {put,get,list,del}  subcommands
+		  put               upload ressources
+		  get               download ressources
+		  list              list your packages
+		  del               delete resources
 
-		optional arguments:
-		  -h, --help          show this help message and exit
+    optional arguments:
+    -h, --help          show this help message and exit
 
     resup.py {put | get | list | del} -h for specific help on subcommands.
 -------
