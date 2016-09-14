@@ -89,7 +89,7 @@ by providing a regular expression to select resource names.
 
 ------
 
-<a id="del"></a>
+<a id="del"> </a>
 
 	resup.py del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
 
