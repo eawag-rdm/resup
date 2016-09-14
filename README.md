@@ -1,7 +1,7 @@
 # resup.py
 
-Batch upload of resources to data package in CKAN.
-Batch download and deletion from data package in CKAN.
++ Batch upload of resources to data package in CKAN.
++ Batch download and deletion from data package in CKAN.
 
 **resup.py** handles compression, creation of a tar-archive,
 checksumming, splitting of large files for upload, and
