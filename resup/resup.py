@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
 import ckanapi
 import requests
 import argparse
@@ -489,7 +488,7 @@ def list_packages(args):
     return(pkgs)
 
 
-if __name__ == '__main__':
+def main():
     pa = Parser()
     args = pa.parse(sys.argv)
     c = Connection(args).get_connection()
@@ -507,4 +506,3 @@ if __name__ == '__main__':
         pkgnames = list_packages(args)
         for p in pkgnames:
             print p
-
