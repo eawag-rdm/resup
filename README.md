@@ -55,5 +55,25 @@ by providing a regular expression to select resource names.
 	  --noclean             Keep the various temporary directories and files
 							potentially created (e.g. "_tar", "_gz"). Default is
 							to delete them.
+------
+    resup.py get [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [DIRECTORY] [RESOURCES]
+
+	Bulk download resources of a package in CKAN.
+
+	positional arguments:
+	  PACKAGENAME  Name of the data package
+	  DIRECTORY    Directory into which ressources are downloaded. Default is the
+				   current working directory.
+	  RESOURCES    The name of the resource to be downloaded or a regular
+				   expression that matches the resources to be downloaded, e.g.
+				   ".*" (the default!)
+
+	optional arguments:
+	  -h, --help   show this help message and exit
+	  -s SERVER    CKAN server (default is https://eaw-ckan-dev1.eawag.wroot.emp-
+				   eaw.ch)
+	  -k API_KEY   Your API-key. If omitted, the environment variable
+				   'CKAN_APIKEY' will be used.
+
 
 
