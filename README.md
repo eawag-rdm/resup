@@ -85,6 +85,22 @@ by providing a regular expression to select resource names.
                   (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
       -k API_KEY  Your API-key. If omitted, the environment variable 'CKAN_APIKEY'
                   will be used.
+-------
+	usage: resup.py del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
 
+	Batch delete resoures of a package in CKAN.
 
+	positional arguments:
+	  PACKAGENAME  Name of the data package
+	  RESOURCES    The name of the resource to be deleted or a regular expression
+				   that matches the resources to be deleted, e.g. ".*" (the
+				   default!)
+
+	optional arguments:
+	  -h, --help   show this help message and exit
+	  -s SERVER    CKAN server (default is https://eaw-ckan-dev1.eawag.wroot.emp-
+				   eaw.ch)
+	  -k API_KEY   Your API-key. If omitted, the environment variable
+				   'CKAN_APIKEY' will be used.
+	    
 
