@@ -11,6 +11,7 @@ Resources to be downloaded or deleted can be specified
 by providing a regular expression to select resource names.
 
 **Usage:**
+
 		resup.py [-h] {put,get,list,del} ...
 
 		positional arguments:
@@ -29,30 +30,30 @@ by providing a regular expression to select resource names.
                     [--maxfilesize MAXFILESIZE] [--keepdummy] [--noclean]
                     PACKAGENAME [DIRECTORY]
 
-Upload a batch of files as resources to CKAN.
+    Upload a batch of files as resources to CKAN.
 
-positional arguments:
-  PACKAGENAME           Name of the data package
-  DIRECTORY             The directory containing the ressources to be
-                        uploaded. Default is the current working directory.
-                        Subdirectories are ignored.
+	positional arguments:
+	  PACKAGENAME           Name of the data package
+	  DIRECTORY             The directory containing the ressources to be
+							uploaded. Default is the current working directory.
+							Subdirectories are ignored.
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -s SERVER             CKAN server (default is https://eaw-ckan-
-                        dev1.eawag.wroot.emp-eaw.ch)
-  -k API_KEY            Your API-key. If omitted, the environment variable
-                        'CKAN_APIKEY' will be used.
-  --tar                 create a tar archive
-  --gz                  gzip the file(s) before upload
-  --maxfilesize MAXFILESIZE
-                        Maximum filesize (in bytes) for upload. Larger files
-                        will be split into parts <= MAXFILESIZE. The default
-                        is 4096 Mb.
-  --keepdummy           do not delete the ressource 'dummy', if present, from
-                        package. The default is to delete it.
-  --noclean             Keep the various temporary directories and files
-                        potentially created (e.g. "_tar", "_gz"). Default is
-                        to delete them.
+	optional arguments:
+	  -h, --help            show this help message and exit
+	  -s SERVER             CKAN server (default is https://eaw-ckan-
+							dev1.eawag.wroot.emp-eaw.ch)
+	  -k API_KEY            Your API-key. If omitted, the environment variable
+							'CKAN_APIKEY' will be used.
+	  --tar                 create a tar archive
+	  --gz                  gzip the file(s) before upload
+	  --maxfilesize MAXFILESIZE
+							Maximum filesize (in bytes) for upload. Larger files
+							will be split into parts <= MAXFILESIZE. The default
+							is 4096 Mb.
+	  --keepdummy           do not delete the ressource 'dummy', if present, from
+							package. The default is to delete it.
+	  --noclean             Keep the various temporary directories and files
+							potentially created (e.g. "_tar", "_gz"). Default is
+							to delete them.
 
 
