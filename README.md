@@ -9,3 +9,5 @@ re-assemblage of thusly splitted files upon download.
 
 Resources to be downloaded or deleted can be specified
 by providing a regular expression to select resource names.
+
+**usage:** `resup.py [-h] {put,get,list,del} ...`
