@@ -29,7 +29,7 @@ resup.py {[put](#user-content-put) | [get](#user-content-put) | [list](#user-con
 -------
 <a id="put"></a>
 
-resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
+    resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
                     [--maxfilesize MAXFILESIZE] [--keepdummy] [--noclean]
                     PACKAGENAME [DIRECTORY]
 
