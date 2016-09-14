@@ -40,8 +40,8 @@ by providing a regular expression to select resource names.
 
 	optional arguments:
 	  -h, --help            show this help message and exit
-	  -s SERVER             CKAN server (default is https://eaw-ckan-
-							dev1.eawag.wroot.emp-eaw.ch)
+	  -s SERVER          CKAN server
+                                (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
 	  -k API_KEY            Your API-key. If omitted, the environment variable
 							'CKAN_APIKEY' will be used.
 	  --tar                 create a tar archive
@@ -70,10 +70,21 @@ by providing a regular expression to select resource names.
 
 	optional arguments:
 	  -h, --help   show this help message and exit
-	  -s SERVER    CKAN server (default is https://eaw-ckan-dev1.eawag.wroot.emp-
-				   eaw.ch)
+	  -s SERVER    CKAN server
+				   (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
 	  -k API_KEY   Your API-key. If omitted, the environment variable
 				   'CKAN_APIKEY' will be used.
+------
+    resup.py list [-h] [-s SERVER] [-k API_KEY]
+
+    List the packages that you can modify.
+
+    optional arguments:
+      -h, --help  show this help message and exit
+      -s SERVER   CKAN server
+                  (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
+      -k API_KEY  Your API-key. If omitted, the environment variable 'CKAN_APIKEY'
+                  will be used.
 
 
 
