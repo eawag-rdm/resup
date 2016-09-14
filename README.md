@@ -24,10 +24,12 @@ by providing a regular expression to select resource names.
     optional arguments:
     -h, --help          show this help message and exit
 
-    resup.py {put | get | list | del} -h for specific help on subcommands.
-[resup.py del](#user-content-del)
+resup.py {[put](#user-content-put) | [get](#user-content-put) | [list](#user-content-list) | [del](#user-content-del)} -h for specific help on subcommands.
+
 -------
-    resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
+<a id="put"></a>
+
+resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
                     [--maxfilesize MAXFILESIZE] [--keepdummy] [--noclean]
                     PACKAGENAME [DIRECTORY]
 
@@ -57,6 +59,8 @@ by providing a regular expression to select resource names.
 							potentially created (e.g. "_tar", "_gz"). Default is
 							to delete them.
 ------
+<a id="list"></a>
+
     resup.py get [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [DIRECTORY] [RESOURCES]
 
 	Bulk download resources of a package in CKAN.
@@ -75,7 +79,9 @@ by providing a regular expression to select resource names.
 				   (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
 	  -k API_KEY   Your API-key. If omitted, the environment variable
 				   'CKAN_APIKEY' will be used.
-------
+ ------
+ <a id="list"></a>
+ 
     resup.py list [-h] [-s SERVER] [-k API_KEY]
 
     List the packages that you can modify.
