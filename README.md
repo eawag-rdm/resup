@@ -25,7 +25,7 @@ by providing a regular expression to select resource names.
     -h, --help          show this help message and exit
 
     resup.py {put | get | list | del} -h for specific help on subcommands.
-[resup.py del](#del)
+[resup.py del](#user-content-del)
 -------
     resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
                     [--maxfilesize MAXFILESIZE] [--keepdummy] [--noclean]
