@@ -88,7 +88,8 @@ by providing a regular expression to select resource names.
                   will be used.
 
 <a id="del">------</a>
-	usage: resup.py del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
+
+	resup.py del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
 
 	Batch delete resoures of a package in CKAN.
 
