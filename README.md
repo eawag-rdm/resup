@@ -87,7 +87,8 @@ by providing a regular expression to select resource names.
       -k API_KEY  Your API-key. If omitted, the environment variable 'CKAN_APIKEY'
                   will be used.
 
-<a id="del">------</a>
+<a id="del"></a>
+-------
 
 	resup.py del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
 
