@@ -25,6 +25,7 @@ by providing a regular expression to select resource names.
     -h, --help          show this help message and exit
 
     resup.py {put | get | list | del} -h for specific help on subcommands.
+[resup.py del](#del)
 -------
     resup.py put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
                     [--maxfilesize MAXFILESIZE] [--keepdummy] [--noclean]
@@ -85,7 +86,8 @@ by providing a regular expression to select resource names.
                   (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
       -k API_KEY  Your API-key. If omitted, the environment variable 'CKAN_APIKEY'
                   will be used.
--------
+
+<a id="del">------</a>
 	usage: resup.py del [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [RESOURCES]
 
 	Batch delete resoures of a package in CKAN.
