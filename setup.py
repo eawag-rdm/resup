@@ -1,4 +1,6 @@
 from setuptools import setup
+from sys import platform
+from subprocess import call
 
 setup(name='resup',
       version='1.0',
@@ -15,3 +17,7 @@ setup(name='resup',
           'console_scripts': ['resup=resup.resup:main']
       }
 )
+
+if sys.platform == 'win32':
+    call(['powershell', '-c', 'setx', 'Path',
+          '"$env:path;$env:appdata\Python\Scripts"'])
