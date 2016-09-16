@@ -18,6 +18,6 @@ setup(name='resup',
       }
 )
 
-if sys.platform == 'win32':
+if platform == 'win32':
     call(['powershell', '-c', 'setx', 'Path',
           '"$env:path;$env:appdata\Python\Scripts"'])
