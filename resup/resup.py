@@ -115,12 +115,11 @@ been uploaded.
                                        'resources of a package in CKAN.')
         pa_get.add_argument('pkg_name', metavar='PACKAGENAME', type=str,
                             help='Name of the data package')
-        pa_get.add_argument('--yes','-y', action='store_true',
-                            help='Answer "yes" to all questions. This will ' +
-                            'omit asking for confirmation if donwloaded ' +
-                            'resources checksum doesn\'t match (useful if ' +
+        pa_get.add_argument('--quiet','-q', action='store_true',
+                            help='Omit asking for confirmation if a dowloaded ' +
+                            'resource\'s checksum doesn\'t match (useful if ' +
                             'files on the server don\'t have a checksum) and ' +
-                            'if local files will be overwritten')
+                            'also if local files will be overwritten')
   
         pa_get.add_argument('directory', metavar='DIRECTORY', type=str, nargs='?',
                         default=os.curdir,
@@ -326,7 +325,7 @@ class Get(object):
         self.pkg_name = args['pkg_name']
         self.directory = os.path.normpath(args['directory'])
         self.resources = args['resources']
-        self.yes = args['yes']
+        self.yes = args['quiet']
         self.partpatt = re.compile('^(?P<basename>.+)_part_(?P<idx>\d+)$')
         self.downloaddict = {}
         check_package(args)
