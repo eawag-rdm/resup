@@ -115,6 +115,12 @@ been uploaded.
                                        'resources of a package in CKAN.')
         pa_get.add_argument('pkg_name', metavar='PACKAGENAME', type=str,
                             help='Name of the data package')
+        pa_get.add_argument('--yes','-y', action='store_true',
+                            help='Answer "yes" to all questions. This will ' +
+                            'omit asking for confirmation if donwloaded ' +
+                            'resources checksum doesn\'t match (useful if ' +
+                            'files on the server don\'t have a checksum) and ' +
+                            'if local files will be overwritten')
   
         pa_get.add_argument('directory', metavar='DIRECTORY', type=str, nargs='?',
                         default=os.curdir,
@@ -320,6 +326,7 @@ class Get(object):
         self.pkg_name = args['pkg_name']
         self.directory = os.path.normpath(args['directory'])
         self.resources = args['resources']
+        self.yes = args['yes']
         self.partpatt = re.compile('^(?P<basename>.+)_part_(?P<idx>\d+)$')
         self.downloaddict = {}
         check_package(args)
@@ -385,14 +392,18 @@ class Get(object):
 
         def existingfile(path, name):
             if os.path.exists(path):
-                answer = raw_input('File {} exists. Overwrite? [Y/N] '
-                                   .format(path))
+                if not self.yes:
+                    answer = raw_input('File {} exists. Overwrite? [Y/N] '
+                                       .format(path))
+                else:
+                    answer = 'yes'
                 if answer not in ['y', 'Y', 'yes', 'Yes', 'YES']:
                     print 'Skipping download of {}'.format(name)
                     return True
                 else:
                     os.remove(path)
                     return False
+            
 
         def dl_part(fout, part):
             r = requests.get(part['url'],
@@ -411,7 +422,10 @@ class Get(object):
                 print 'Checksum validation failed for {}.'.format(partbase)
                 print digest
                 print part['hash']
-                ans = raw_input('Retry download? [Y/N] ')
+                if not self.yes:
+                    ans = raw_input('Retry download? [Y/N] ')
+                else:
+                    return False
                 if ans in ['y', 'Y', 'yes', 'Yes', 'YES']:
                     return True
                 else:
@@ -493,6 +507,7 @@ def main():
     args = pa.parse(sys.argv)
     c = Connection(args).get_connection()
     args.update({'connection': c})
+    print args
 
     if args['subcmd'] == 'put':
         put = Put(args)
