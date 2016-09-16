@@ -2,6 +2,8 @@ from setuptools import setup
 from sys import platform
 from subprocess import call
 
+print 'IN SETUP.PY'
+
 setup(name='resup',
       version='1.0',
       description='Batch up- and download of CKAN resources',
