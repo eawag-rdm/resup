@@ -1,8 +1,16 @@
 from setuptools import setup
+from setuptools.command.install import install
 from sys import platform
 from subprocess import call
 
-print 'IN SETUP.PY'
+class CustomInstallCommand(install):
+
+    def run(self):
+        install.run(self)
+        if platform == 'win32':
+            call(['powershell', '-c', 'setx', 'Path',
+                  '"$env:path;$env:appdata\Python\Scripts"'])
+
 
 setup(name='resup',
       version='1.0',
@@ -13,13 +21,12 @@ setup(name='resup',
       license='GNU Affero General Public License',
       packages=['resup'],
       zip_safe=False,
-      python_requires='==2.7.*',
       install_requires=['ckanapi', 'requests'],
       entry_points={
           'console_scripts': ['resup=resup.resup:main']
+      },
+      cmdclass={
+          'install': CustomInstallCommand
       }
 )
 
-if platform == 'win32':
-    call(['powershell', '-c', 'setx', 'Path',
-          '"$env:path;$env:appdata\Python\Scripts"'])
