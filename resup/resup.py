@@ -506,7 +506,7 @@ def main():
     args = pa.parse(sys.argv)
     c = Connection(args).get_connection()
     args.update({'connection': c})
-    print args
+    #print args
 
     if args['subcmd'] == 'put':
         put = Put(args)
