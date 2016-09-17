@@ -21,7 +21,7 @@ hvw/2016-09-16
 (you need local admin rights on your machine)
 
 1. [download Python 2.7.12 for Windows](https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi)
-2. Double click and select "Add python.exe to Path" in the installer:
+2. Double click, follow instructions,  and select "Add python.exe to Path" when asked for customizations:
 
 ![](./installer_w32.png)\
 
@@ -36,6 +36,7 @@ hvw/2016-09-16
 2. Type:    
     `pip install --user git+https://github.com/eawag-rdm/resup.git`
     Note: You can paste text from the clipboard into the Powershell window by **right-clicking** into the window.
+3. Close Powershell and open it again (complaints about that to \texttt{\small custserv@microsoft.com})
 
 ### 3. Provide your CKAN API key
 
