@@ -12,7 +12,7 @@ header-includes:
 \begin{small}
 hvw/2016-09-18
 \end{small}
-\vspace{1.5cm}
+\vspace{1.2cm}
 
 \textbf{\large resup: Installation instructions for Linux}
 
@@ -70,21 +70,23 @@ The output should be a list of the packages to which you have write access.
 
 ### 5. Additional steps to use  *resup* from outside the Eawag network, e.g. from servers in the ETH network at GDC.
 
-1. Send me your SSH public key. This is is a file with extension "`.pub`" in the directory "`~/.ssh/`", e.g. "`id_rsa.pub`". In case you don have one, create one:    
+1. Send me your SSH public key and your username on the machine in question. The public key is a file with extension "`.pub`" in the directory "`~/.ssh/`", e.g. "`id_rsa.pub`". In case you don have one, create one:    
     `ssh-keygen -b 4096`{.bash}    
-	and answer all subsequent questions by hitting [Return].
-	My positive answer will include the IP-address of a "jumphost".
+	and answer all subsequent questions by hitting [Return].  My
+	positive answer will include the IP-address and a port number of a
+	"jumphost".
 
-2. Set 2 environment variables:
+2. Set 3 environment variables:
 
 	~~~bash
 	export HTTPS_PROXY=socks5://localhost:7000
-	export EAW_JUMPHOST=the_ip.address.I_sent.you
+	export EAW_JUMPHOST_IP=the_ip.address.I_sent.you
+	export EAW_JUMPHOST_PORT=the_port_number_I_sent_you
     ~~~
 	(also preferably persistently in `~/.bashrc`)
 
 3. Before using *resup*, start an SSH dynamic proxy at port 7000:    
-    `ssh -Nf -D 7000 $EAW_JUMPHOST`{.bashrc}
+    `ssh -p $EAW_JUMPHOST_PORT -Nf -D 7000 $EAW_JUMPHOST`{.bashrc}
 
 **Note:** The above setup also allows you to use the Eawag-RDM webinterface from outside the Ewag network. Simply configure your browser to use a "SOCKS5 proxy" at `localhost:7000`.
 
