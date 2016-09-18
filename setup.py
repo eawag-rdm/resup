@@ -21,7 +21,7 @@ setup(name='resup',
       license='GNU Affero General Public License',
       packages=['resup'],
       zip_safe=False,
-      install_requires=['ckanapi', 'requests'],
+      install_requires=['ckanapi', 'requests[socks]'],
       entry_points={
           'console_scripts': ['resup=resup.resup:main']
       },
