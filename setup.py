@@ -2,7 +2,9 @@ from setuptools import setup
 from setuptools.command.install import install
 from sys import platform
 import os
-import _winreg as wr
+if platform == 'win32':
+    import _winreg as wr
+
 
 def setuserpath(variable, newpath):
     key = wr.OpenKey(wr.HKEY_CURRENT_USER, 'Environment', 0,
