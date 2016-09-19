@@ -46,7 +46,7 @@ In case you are your own system adminstrator:
 ###  3. Provide your CKAN API key
 
 1. Point your webbrowser at the Eawag Research Data Platform, log in, and click on your name (top right).    
-    In case you are doing this from a machine outside the Eawag network, jump to step **5.**
+    In case you are doing this from a machine outside the Eawag network, visit step **5.**
 2. Copy your API key (left sidebar, bottom) to the clipboard.
 3. Set the environment variable CKAN_APIKEY accordingly. For bash users that would be:    
 	```bash
@@ -68,7 +68,10 @@ Type: `resup list`{.bash}
 
 The output should be a list of the packages to which you have write access.
 
+
+
 ### 5. Additional steps to use  *resup* from outside the Eawag network, e.g. from servers in the ETH network at GDC.
+
 
 1. Send me your SSH public key and your username on the machine in question. The public key is a file with extension "`.pub`" in the directory "`~/.ssh/`", e.g. "`id_rsa.pub`". In case you don have one, create one:    
     `ssh-keygen -b 4096`{.bash}    
@@ -76,10 +79,9 @@ The output should be a list of the packages to which you have write access.
 	positive answer will include the IP-address and a port number of a
 	"jumphost".
 
-2. Set 3 environment variables:
+2. Set 2 environment variables:
 
 	~~~bash
-	export HTTPS_PROXY=socks5://localhost:7000
 	export EAW_JUMPHOST_IP=the_ip.address.I_sent.you
 	export EAW_JUMPHOST_PORT=the_port_number_I_sent_you
     ~~~
@@ -87,6 +89,19 @@ The output should be a list of the packages to which you have write access.
 
 3. Before using *resup*, start an SSH dynamic proxy at port 7000:    
     `ssh -p $EAW_JUMPHOST_PORT -Nf -D 7000 $EAW_JUMPHOST`{.bashrc}
+4. Set the environment variable `HTTPS_PROXY`:    
+    `export HTTPS_PROXY=socks5://localhost:7000`{.bash}
+
+You might want to put step 3. and 4. into an alias like so:
+
+\footnotesize
+
+~~~~bash
+echo "alias proxy-on=\"ssh -p \$EAW_JUMPHOST_PORT -Nf -D 7000 \$EAW_JUMPHOST_IP && \
+export HTTPS_PROXY=socks5://localhost:7000\"" >> ~/.bashrc
+~~~~
+
+\normalsize
 
 **Note:** The above setup also allows you to use the Eawag-RDM webinterface from outside the Ewag network. Simply configure your browser to use a "SOCKS5 proxy" at `localhost:7000`.
 
