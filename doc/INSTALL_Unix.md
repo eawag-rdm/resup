@@ -73,10 +73,10 @@ The output should be a list of the packages to which you have write access.
 ### 5. Additional steps to use  *resup* from outside the Eawag network, e.g. from servers in the ETH network at GDC.
 
 
-1. Send me your SSH public key and your username on the machine in question. The public key is a file with extension "`.pub`" in the directory "`~/.ssh/`", e.g. "`id_rsa.pub`". In case you don have one, create one:    
+1. Send me your SSH public key and your username on the machine in question. The public key is a file with extension "`.pub`" in the directory "`~/.ssh/`", e.g. "`id_rsa.pub`". In case you don't have one, create one:    
     `ssh-keygen -b 4096`{.bash}    
 	and answer all subsequent questions by hitting [Return].  My
-	positive answer will include the IP-address and a port number of a
+	answer will include the IP-address and port number of a
 	"jumphost".
 
 2. Set 2 environment variables:
