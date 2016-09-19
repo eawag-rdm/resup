@@ -52,7 +52,7 @@ hvw/2016-09-16
 Type:\
 `resup -h`
 
-You should get a help text. Not that `resup` has sub-commands,
+You should get a help text. Note that `resup` has sub-commands,
 the help of which can be accessed as, e.g.,\
 `resup put -h`
 
