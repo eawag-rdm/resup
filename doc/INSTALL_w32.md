@@ -44,7 +44,6 @@ Install Python2.7 from Baramundi:
     `pip install --user git+https://github.com/eawag-rdm/resup.git`
 
     Note: You can paste text from the clipboard into the Powershell window by **right-clicking** into the window.
-3. Close Powershell and open it again (complaints about that to \texttt{\small custserv@microsoft.com})
 
 ### 3. Provide your CKAN API key
 
