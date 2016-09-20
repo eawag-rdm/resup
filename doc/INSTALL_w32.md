@@ -1,7 +1,7 @@
 ---
 fontfamily: libertine
 papersize: A4
-fontsize: 12pt
+fontsize: 11pt
 documentclass: scrartcl
 geometry: margin=2cm, bottom=3cm
 numbersections: false
@@ -16,31 +16,41 @@ hvw/2016-09-16
 
 \textbf{\large resup: Installation instructions for Windows}
 
-### 1. Install the latest Python 2.7 if you don't have it yet:
+### 1. Prerequisites:
 
-(you need local admin rights on your machine)
++ Python 2.7 ([download](https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi))
++ Git ([download](https://github.com/git-for-windows/git/releases/download/v2.10.0.windows.1/Git-2.10.0-32-bit.exe))
 
-1. [download Python 2.7.12 for Windows](https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi)
-2. Double click, follow instructions,  and select "Add python.exe to Path" when asked for customizations:
+#### Eawag Users:
 
-![](./installer_w32.png)\
+Install Python2.7 from Baramundi:
+
+1. Double-click the Baramundi-Icon (bottom right)
+
+    ![](./baramundi.png)\
+
+2. Install Python 2.7 and Git
 
 
 ### 2. Install *resup* from GitHub:
 
 1. Open a Powershell window:
 
-![](./powershell.png)\
+    ![](./powershell.png)\
 
 
-2. Type:    
+2. Type:
+
     `pip install --user git+https://github.com/eawag-rdm/resup.git`
+
     Note: You can paste text from the clipboard into the Powershell window by **right-clicking** into the window.
 3. Close Powershell and open it again (complaints about that to \texttt{\small custserv@microsoft.com})
 
 ### 3. Provide your CKAN API key
 
-1. Point your webbrowser at the Eawag Research Data Platform, log in, and click on your name (top right).
+1. Point your webbrowser at the
+   [Eawag Research Data Platform](https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch),
+   log in, and click on your name (top right).
 2. Copy your API key (left sidebar, bottom) to the clipboard (Ctrl-C)
 3. Type (and paste) into the Powershell window:    
     `setx CKAN_APIKEY xxxxxxxxxxxxxxxxxxxxxxxx`    
