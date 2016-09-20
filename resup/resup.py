@@ -478,7 +478,7 @@ def del_resources(args):
     delres = [(r[0], r[1]) for r in allres if re.match(resources, r[0])]
     for r in delres:
         print "DELETING Resources: {}".format(r[0])
-        c.call_action('resource_delete', {'id': r[1]})
+        conn.call_action('resource_delete', {'id': r[1]})
 
 def check_package(args):
     if args['pkg_name'] in list_packages(args):
