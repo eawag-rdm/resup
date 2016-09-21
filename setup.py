@@ -1,6 +1,7 @@
 from setuptools import setup
 from setuptools.command.install import install
 from sys import platform
+from subprocess import call
 import os
 if platform == 'win32':
     import _winreg as wr
@@ -28,6 +29,8 @@ def setuserpath(variable, newpath):
                     break
         i +=1
     wr.CloseKey(key)
+    call(['powershell.exe', '-c', 'setx', 'DUMMY', 'DUMMY'])
+    
         
 class CustomInstallCommand(install):
 
