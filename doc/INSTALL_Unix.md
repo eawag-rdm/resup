@@ -50,7 +50,7 @@ In case you are your own system adminstrator:
 2. Copy your API key (left sidebar, bottom) to the clipboard.
 3. Set the environment variable CKAN_APIKEY accordingly. For bash users that would be:    
 	```bash
-	echo "CKAN_APIKEY=xxxxxxxxxxxxxxxxxxxxxxxxxx" >>$HOME/.bashrc
+	echo "export CKAN_APIKEY=xxxxxxxxxxxxxxxxxxxxxxxxxx" >>$HOME/.bashrc
 	```
 	where "xxxxxxxxxxxxxxxxxxxxxxxxxx" is the API key.
 
