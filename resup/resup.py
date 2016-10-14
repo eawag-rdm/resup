@@ -520,7 +520,5 @@ def main():
         pkgnames = list_packages(args)
         for p in pkgnames:
             print p
-
 if __name__ == '__main__':
     main()
-
