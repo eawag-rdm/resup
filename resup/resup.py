@@ -500,7 +500,6 @@ def list_packages(args):
     pkgs = [p['name'] for p in res]
     return(pkgs)
 
-
 def main():
     pa = Parser()
     args = pa.parse(sys.argv)
@@ -520,5 +519,6 @@ def main():
         pkgnames = list_packages(args)
         for p in pkgnames:
             print p
+
 if __name__ == '__main__':
     main()
