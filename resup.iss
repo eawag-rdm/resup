@@ -34,7 +34,7 @@ UninstallFilesDir="{localappdata}/uninst"
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: ".\resup\dist\resup_win.exe"; DestDir: "{localappdata}"; Flags: ignoreversion
+Source: ".\resup\dist\resup.exe"; DestDir: "{localappdata}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
