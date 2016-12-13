@@ -41,7 +41,6 @@ Root: HKCU; Subkey: "Environment"; ValueType: expandsz; ValueName: PATH; ValueDa
 Check: NeedsAddPath('{localappdata}')
 
 [Code]
-
 function NeedsAddPath(Param: string): boolean;
 var
   OrigPath: string;
