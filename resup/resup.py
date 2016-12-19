@@ -100,6 +100,9 @@ been uploaded.
                             'The default is {} Mb.'.format(MAXFILESIZE / 2**20),
                             default=MAXFILESIZE)
         
+        pa_put.add_argument('--no-chksum', action='store_true',
+                            help='skip calculation of checksums')
+        
         pa_put.add_argument('--keepdummy', action='store_true',
                             help='do not delete the ressource \'dummy\', if present, '+
                             'from package. The default is to delete it.')
@@ -171,6 +174,7 @@ class Put(object):
         self.tar = args['tar']
         self.maxsize = args['maxfilesize']
         self.keepdummy = args['keepdummy']
+        self.nochksum = args['no_chksum']
         self.noclean = args['noclean']
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
                     for f in os.listdir(self.directory)
@@ -309,7 +313,8 @@ class Put(object):
         if self.tar:
             self._tar()
         self._split_files()
-        self._sha256()
+        if not self.nochksum:
+            self._sha256()
         self._upload()
         if not self.keepdummy:
             del_resources({'pkg_name': self.pkg_name,
