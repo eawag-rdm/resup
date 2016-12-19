@@ -47,8 +47,8 @@ resup {[put](#user-content-put) | [get](#user-content-put) | [list](#user-conten
 
 	optional arguments:
 	  -h, --help            show this help message and exit
-	  -s SERVER          CKAN server
-                                (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
+	  -s SERVER             CKAN server
+                                 (default is https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch)
 	  -k API_KEY            Your API-key. If omitted, the environment variable
 							'CKAN_APIKEY' will be used.
 	  --tar                 create a tar archive
@@ -57,6 +57,7 @@ resup {[put](#user-content-put) | [get](#user-content-put) | [list](#user-conten
 							Maximum filesize (in bytes) for upload. Larger files
 							will be split into parts <= MAXFILESIZE. The default
 							is 4096 Mb.
+      --no-chksum           skip calculation of checksums
 	  --keepdummy           do not delete the ressource 'dummy', if present, from
 							package. The default is to delete it.
 	  --noclean             Keep the various temporary directories and files
