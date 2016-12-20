@@ -217,7 +217,7 @@ class Put(object):
                 self.partfiles[filename] = []
             partsname = os.path.join(partsdir,
                                      os.path.basename(filename) +
-                                     '_part_{:0=4}'.format(count))
+                                     '.{:0=4}'.format(count))
             fpart = open(partsname, 'wb')
             print "    writing new parts-file: {}".format(partsname)
             self.partfiles[filename].append(partsname)
@@ -237,9 +237,9 @@ class Put(object):
         for filename in [f for f in self.metadata.keys()
                          if os.stat(f).st_size > self.maxsize]:
             print "splitting {}".format(filename)
-            cur_partsfile = newpartsfile(None, 0)
+            count = 1
+            cur_partsfile = newpartsfile(None, count)
             cur_size = 0
-            count = 0
             with open(filename, 'rb') as f:
                 for chunk in iter(lambda: f.read(chunksize), b''):
                     cur_size += chunksize
@@ -331,7 +331,7 @@ class Get(object):
         self.directory = os.path.normpath(args['directory'])
         self.resources = args['resources']
         self.yes = args['quiet']
-        self.partpatt = re.compile('^(?P<basename>.+)_part_(?P<idx>\d+)$')
+        self.partpatt = re.compile('^(?P<basename>.+)\.(?P<idx>\d+)$')
         self.downloaddict = {}
         check_package(args)
         self._checkdir()
