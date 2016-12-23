@@ -102,7 +102,7 @@ been uploaded.
         
         pa_put.add_argument('--no-chksum', action='store_true',
                             help='skip calculation of checksums')
-        
+
         pa_put.add_argument('--keepdummy', action='store_true',
                             help='do not delete the ressource \'dummy\', if present, '+
                             'from package. The default is to delete it.')
@@ -297,7 +297,8 @@ class Put(object):
             print "uploading {} ({})".format(res, self.metadata[res]['size'])
             print self.metadata[res]
             self.connection.call_action('resource_create', self.metadata[res],
-                                files={'upload': open(res, 'rb')})
+                                        files={'upload': open(res, 'rb')},
+                                        progress=True)
 
     def _clean(self):
         if self.noclean:
