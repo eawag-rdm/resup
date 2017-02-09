@@ -310,7 +310,7 @@ class Put(object):
             print self.metadata[res]
             self.connection.call_action('resource_create', self.metadata[res],
                                         files={'upload': open(res, 'rb')},
-                                        progress=progressbar.mkprogress)
+                                        progress=progressbar.mkprogress, requests_kwargs={'verify': False})
 
     def _clean(self):
         if self.noclean:
@@ -369,7 +369,7 @@ class Get(object):
             os.remove(testfile)
 
     def _getresources(self):
-        res = self.conn.call_action('package_show', {'id': self.pkg_name})
+        res = self.conn.call_action('package_show', {'id': self.pkg_name}, requests_kwargs={'verify': False})
         res = res.get('resources')
         if not res:
             print 'No resources in package {}. Aborting.'.format(self.pkg_name)
@@ -491,12 +491,12 @@ def del_resources(args):
         print('Aborting!')
         sys.exit(1)
     check_package(args)
-    pkg = conn.call_action('package_show', {'id': pkg_name})
+    pkg = conn.call_action('package_show', {'id': pkg_name}, requests_kwargs={'verify': False})
     allres = [(res['name'], res['id']) for res in pkg['resources']]
     delres = [(r[0], r[1]) for r in allres if re.match(resources, r[0])]
     for r in delres:
         print "DELETING Resources: {}".format(r[0])
-        conn.call_action('resource_delete', {'id': r[1]})
+        conn.call_action('resource_delete', {'id': r[1]}, requests_kwargs={'verify': False})
 
 def check_package(args):
     if args['pkg_name'] in list_packages(args):
@@ -508,13 +508,13 @@ def check_package(args):
 def list_packages(args):
     conn = args['connection']
     orgas = conn.call_action('organization_list_for_user',
-                             {'permission': 'update_dataset'})
+                             {'permission': 'update_dataset'}, requests_kwargs={'verify': False})
     oids = [o['id'] for o in orgas]
     searchquery = '('+' OR '.join(['owner_org:{}'.format(oid) for oid in oids]) + ')'
     res = conn.call_action('package_search', {'q': searchquery,
                                               'include_drafts': True,
                                               'rows': 1000,
-                                              'include_private': True})['results']
+                                              'include_private': True}, requests_kwargs={'verify': False})['results']
     pkgs = [p['name'] for p in res]
     return(pkgs)
 
