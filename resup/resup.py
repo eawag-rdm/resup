@@ -213,7 +213,7 @@ class Put(object):
             'name': '',
             'resource_type': 'Data_Set',
             'publication': False,
-            'url': ''
+            'url': 'dummy'
         }
         metadict = dict(default_meta)
         metadict.update({'name': os.path.basename(fn)})
