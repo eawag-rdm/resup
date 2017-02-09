@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import ckanapi
+import ckanapi.cli.progressbar as progressbar
 import requests
 import argparse
 import hashlib
@@ -298,7 +299,7 @@ class Put(object):
             print self.metadata[res]
             self.connection.call_action('resource_create', self.metadata[res],
                                         files={'upload': open(res, 'rb')},
-                                        progress=True)
+                                        progress=progressbar.mkprogress)
 
     def _clean(self):
         if self.noclean:
@@ -511,7 +512,6 @@ def main():
     args = pa.parse(sys.argv)
     c = Connection(args).get_connection()
     args.update({'connection': c})
-    #print args
 
     if args['subcmd'] == 'put':
         put = Put(args)
