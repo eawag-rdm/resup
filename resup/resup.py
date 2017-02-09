@@ -91,6 +91,10 @@ been uploaded.
                             help='The directory containing the ressources '+
                             'to be uploaded. Default is the current working ' +
                             'directory. Subdirectories are ignored.')
+        pa_put.add_argument('resources', metavar='RESOURCES', type=str, nargs='?',
+                            default='.*',
+                            help='A regular expression that matches the resources ' +
+                            'to be uploaded, e.g. \".*\" (the default)')
 
         pa_put.add_argument('--tar', action='store_true', help='create a tar archive')
         pa_put.add_argument('--gz', action='store_true', help='gzip the file(s) before upload')
@@ -159,7 +163,7 @@ been uploaded.
                             'to be deleted, e.g. \".*\" (the default!)')
         
     def parse(self, arglist):
-        arguments = vars(self.pa.parse_args())
+        arguments = vars(self.pa.parse_args(args=arglist))
         return arguments
 
 # ### END of Parser() ##########################################
@@ -170,6 +174,7 @@ class Put(object):
         self.pkg_name = args['pkg_name']
         self.directory = os.path.normpath(args['directory'])
         self._checkdir()
+        self.resources = args['resources']
         self.connection = args['connection']
         self.gz = args['gz']
         self.tar = args['tar']
@@ -183,6 +188,8 @@ class Put(object):
                             os.path.join(self.directory, f)))]
         self.resourcefiles = [f for f in allfiles
                               if not re.match('.*\.(yaml|yml)', f)]
+        self.resourcefiles = [f for f in self.resourcefiles if
+                              re.match(self.resources, os.path.basename(f))]
         self.metafiles = [f for f in allfiles
                               if re.match('.*\.(yaml|yml)', f)]
         self.metadata = {f: self._mk_meta_default(f) for f in self.resourcefiles}
@@ -509,7 +516,7 @@ def list_packages(args):
 
 def main():
     pa = Parser()
-    args = pa.parse(sys.argv)
+    args = pa.parse(sys.argv[1:])
     c = Connection(args).get_connection()
     args.update({'connection': c})
 
