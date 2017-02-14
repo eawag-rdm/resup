@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "resup"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Harald von Waldow <harald.vonwaldow@eawag.ch>"
 #define MyAppURL "https://github.com/eawag-rdm/resup"
 #define MyAppExeName "resup.exe"
@@ -34,7 +34,8 @@ UninstallFilesDir="{localappdata}/uninst"
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: ".\resup\dist\resup.exe"; DestDir: "{localappdata}"; Flags: ignoreversion
+Source: ".\resup\dist\resup_x86_64_win7.exe"; DestDir: "{localappdata}"; \
+DestName: "resup.exe"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
