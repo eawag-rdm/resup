@@ -24,10 +24,10 @@ See [Usage](#usage)
 <a id="srcinstall">
 ### Installation from source
 
-**Required:** Python 2.7 or PyPy
-**Recommendation:** Install into a *virtual environment*
-- `resup$ virtualenv venv`
-- `source venv/bin/activate`
+**Required:** Python 2.7 or PyPy   
+**Recommendation:** Install into a *virtual environment*  
+1. `virtualenv venv`
+2. `source venv/bin/activate`
 
     pip install git+https://github.com/eawag-rdm/resup.git
 
