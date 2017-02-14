@@ -1,6 +1,8 @@
+[![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup) Python 2.7, PyPy
+
 # resup
 
-[![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup)
+
 
 + Batch upload of resources to data package in CKAN.
 + Batch download and deletion from data package in CKAN.
