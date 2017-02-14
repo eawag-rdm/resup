@@ -32,6 +32,17 @@ See [Usage](#usage)
 
     pip install git+https://github.com/eawag-rdm/resup.git
 
+<a id="install">
+### Package for Linux
+
+We provide a packaged version of resup that does not require a Python installation.   
+It was built on a x86_64 machine running a default install of CentOS 6.8.
+
+1. Download https://github.com/eawag-rdm/resup/raw/euler/resup/dist/resup_x86_64_CentOS_6.8
+2. Copy to an appropriate location, e.g. `cp resup\_x86\_64\_CentOS_6.8 $HOME/resup`
+3. Make it excecuteable: `chmod u+x  $HOME/resup`
+
+
 ##Usage:
 
     resup [-h] {put,get,list,del} ...
