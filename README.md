@@ -51,42 +51,42 @@ resup {[put](#user-content-put) | [get](#user-content-put) | [list](#user-conten
 -------
 <a id="put"></a>
 
-usage: resup put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
-                 [--maxfilesize MAXFILESIZE] [--chksum HASHDIGEST]
-                 [--keepdummy] [--noclean]
-                 PACKAGENAME [DIRECTORY] [RESOURCES]
+	   usage: resup put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
+	                    [--maxfilesize MAXFILESIZE] [--chksum HASHDIGEST]
+	                    [--keepdummy] [--noclean]
+	                    PACKAGENAME [DIRECTORY] [RESOURCES]
 
-Upload a batch of files as resources to CKAN.
+	   Upload a batch of files as resources to CKAN.
 
-positional arguments:
-  PACKAGENAME           Name of the data package
-  DIRECTORY             The directory containing the ressources to be
-                        uploaded. Default is the current working directory.
-                        Subdirectories are ignored.
-  RESOURCES             A regular expression that matches the resources to be
-                        uploaded, e.g. ".*" (the default)
+	   positional arguments:
+	     PACKAGENAME           Name of the data package
+	     DIRECTORY             The directory containing the ressources to be
+	                           uploaded. Default is the current working directory.
+	                           Subdirectories are ignored.
+	     RESOURCES             A regular expression that matches the resources to be
+	                           uploaded, e.g. ".*" (the default)
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -s SERVER             CKAN server (default is https://eaw-ckan-
-                        dev1.eawag.wroot.emp-eaw.ch)
-  -k API_KEY            Your API-key. If omitted, the environment variable
-                        'CKAN_APIKEY' will be used.
-  --tar                 create a tar archive
-  --gz                  gzip the file(s) before upload
-  --maxfilesize MAXFILESIZE
-                        Maximum filesize (in bytes) for upload. Larger files
-                        will be split into parts <= MAXFILESIZE. The default
-                        is 4096 Mb.
-  --chksum HASHDIGEST   The type of cryptographic hash used to calculate a
-                        checksum. Possible values are "sha1" (the default),
-                        "sha256" and "false" (for skipping checksum
-                        calculation).
-  --keepdummy           do not delete the ressource 'dummy', if present, from
-                        package. The default is to delete it.
-  --noclean             Keep the various temporary directories and files
-                        potentially created (e.g. "_tar", "_gz"). Default is
-                        to delete them.
+	   optional arguments:
+	     -h, --help            show this help message and exit
+	     -s SERVER             CKAN server (default is https://eaw-ckan-
+	                           dev1.eawag.wroot.emp-eaw.ch)
+	     -k API_KEY            Your API-key. If omitted, the environment variable
+	                           'CKAN_APIKEY' will be used.
+	     --tar                 create a tar archive
+	     --gz                  gzip the file(s) before upload
+	     --maxfilesize MAXFILESIZE
+	                           Maximum filesize (in bytes) for upload. Larger files
+	                           will be split into parts <= MAXFILESIZE. The default
+	                           is 4096 Mb.
+	     --chksum HASHDIGEST   The type of cryptographic hash used to calculate a
+	                           checksum. Possible values are "sha1" (the default),
+	                           "sha256" and "false" (for skipping checksum
+	                           calculation).
+	     --keepdummy           do not delete the ressource 'dummy', if present, from
+	                           package. The default is to delete it.
+	     --noclean             Keep the various temporary directories and files
+	                           potentially created (e.g. "_tar", "_gz"). Default is
+	                           to delete them.
 
 ------
 <a id="list"></a>
