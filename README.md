@@ -19,7 +19,7 @@ See [Usage](#usage)
 
 ##Installation:
 
-[From Source](#srcinstall) | [Windows](#wininstall) | [Linux](#linstall)
+[From Source](#srcinstall) | [Windows](#package-for-windows) | [Linux](#linstall)
 
 <a id="srcinstall">
 
@@ -34,8 +34,6 @@ source venv/bin/activate
 pip install git+https://github.com/eawag-rdm/resup.git
 
 ```
-
-<a id="wininstall">
 
 ### Package for Windows
 
