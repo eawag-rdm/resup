@@ -1,5 +1,6 @@
-# resup [![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup) Python 2.7, PyPy
-
+# resup
+--------
+[![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup) Python 2.7, PyPy
 -------
 
 
