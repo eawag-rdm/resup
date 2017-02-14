@@ -1,5 +1,7 @@
 # resup
 
+[![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup)
+
 + Batch upload of resources to data package in CKAN.
 + Batch download and deletion from data package in CKAN.
 
@@ -7,10 +9,20 @@
 checksumming, splitting of large files for upload, and
 re-assemblage of thusly splitted files upon download.
 
-Resources to be downloaded or deleted can be specified
+Resources to be uploaded, downloaded or deleted can be specified
 by providing a regular expression to select resource names.
 
+See [Usage](#usage)
+
+
 ##Installation:
+
+[From Source](#srcinstall) | [Windows](#wininstall) | [Linux](#linstall)
+
+<a id="srcinstall">
+### Installation from source
+
+
 
     pip install git+https://github.com/eawag-rdm/resup.git
 
