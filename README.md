@@ -25,7 +25,8 @@ See [Usage](#usage)
 ### Installation from source
 
 **Required:** Python 2.7 or PyPy   
-**Recommendation:** Install into a *virtual environment*  
+**Recommendation:** Install into a *virtual environment*
+
 1. `virtualenv venv`
 2. `source venv/bin/activate`
 
