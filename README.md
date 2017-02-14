@@ -35,7 +35,7 @@ pip install git+https://github.com/eawag-rdm/resup.git
 
 ```
 
-<a id="winstall">
+<a id="wininstall">
 
 ### Package for Windows
 
