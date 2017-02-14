@@ -41,7 +41,7 @@ pip install git+https://github.com/eawag-rdm/resup.git
 
 We provide an installer for Windows (tested with Win7). Installation does **not** require administrator privileges.
 
-1. Download https://github.com/eawag-rdm/resup/blob/master/WindowsInstaller/resup_setup.exe
+1. Download https://github.com/eawag-rdm/resup/raw/master/WindowsInstaller/resup_setup.exe.
 2. Run it.
 3. Follow instructions and allow the installer to reboot your computer.
 
@@ -59,8 +59,8 @@ therefore run on most Linuxes, but throws "InsecurePlatformWarning"s.
 
 The other version was built on a fairly modern Debian 4.6.
 
-1. Download https://github.com/eawag-rdm/resup/raw/euler/resup/dist/resup_x86_64_CentOS_6.8   
-    **or** https://github.com/eawag-rdm/resup/blob/master/resup/dist/resup_x86_64_Debian_4.6.4.
+1. Download https://github.com/eawag-rdm/resup/raw/master/resup/dist/resup_x86_64_CentOS_6.8   
+    **or** https://github.com/eawag-rdm/resup/raw/master/resup/dist/resup_x86_64_Debian_4.6.4.
 2. Copy to an appropriate location, e.g. `cp resup_x86_64_CentOS_6.8 $HOME/resup`
 3. Make it excecuteable: `chmod u+x  $HOME/resup`
 
