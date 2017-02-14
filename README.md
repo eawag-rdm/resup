@@ -28,10 +28,13 @@ See [Usage](#usage)
 **Required:** Python 2.7 or PyPy   
 **Recommendation:** Install into a *virtual environment*
 
-1. `virtualenv venv`
-2. `source venv/bin/activate`
++ `virtualenv venv`
++ `source venv/bin/activate`
 
-    pip install git+https://github.com/eawag-rdm/resup.git
+```
+pip install git+https://github.com/eawag-rdm/resup.git
+
+```
 
 <a id="linstall">
 
@@ -41,7 +44,7 @@ We provide a packaged version of resup that does not require a Python installati
 It was built on a x86_64 machine running a default install of CentOS 6.8.
 
 1. Download https://github.com/eawag-rdm/resup/raw/euler/resup/dist/resup_x86_64_CentOS_6.8
-2. Copy to an appropriate location, e.g. `cp resup\_x86\_64\_CentOS_6.8 $HOME/resup`
+2. Copy to an appropriate location, e.g. `cp resup_x86_64_CentOS_6.8 $HOME/resup`
 3. Make it excecuteable: `chmod u+x  $HOME/resup`
 
 
