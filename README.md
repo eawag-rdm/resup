@@ -32,7 +32,7 @@ See [Usage](#usage)
 
     pip install git+https://github.com/eawag-rdm/resup.git
 
-<a id="install">
+<a id="linstall">
 ### Package for Linux
 
 We provide a packaged version of resup that does not require a Python installation.   
