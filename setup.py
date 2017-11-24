@@ -9,7 +9,7 @@ setup(name='resup',
       license='GNU Affero General Public License',
       packages=['resup'],
       zip_safe=False,
-      install_requires=['ckanapi', 'requests[socks]'],
+      install_requires=['ckanapi', 'requests[socks]', 'progessbar'],
       dependency_links=[
           'git+https://github.com/eawag-rdm/ckanapi.git@streaming_upload#egg=ckanapi'
       ],
