@@ -13,9 +13,9 @@ setup(name='resup',
       dependency_links=[
           'git+https://github.com/eawag-rdm/ckanapi-streaming.git#egg=ckanapi-streaming'
       ],
-    entry_points={
-        'console_scripts': ['resup=resup.resup:main']
-    }
+      entry_points={
+          'console_scripts': ['resup=resup.resup:main']
+      }
 )
 
 
