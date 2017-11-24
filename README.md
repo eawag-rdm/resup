@@ -33,7 +33,7 @@ See [Usage](#usage)
 ```
 virtualenv venv
 source venv/bin/activate
-pip install git+https://github.com/eawag-rdm/resup.git
+pip install --process-dependency-links git+https://github.com/eawag-rdm/resup.git
 
 ```
 
