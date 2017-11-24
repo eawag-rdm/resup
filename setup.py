@@ -9,9 +9,9 @@ setup(name='resup',
       license='GNU Affero General Public License',
       packages=['resup'],
       zip_safe=False,
-      install_requires=['ckanapi', 'requests[socks]'],
+      install_requires=['ckanapi-streaming', 'requests[socks]'],
       dependency_links=[
-          'git+https://github.com/eawag-rdm/ckanapi.git@streaming_upload#egg=ckanapi'
+          'git+https://github.com/eawag-rdm/ckanapi-streaming.git#egg=ckanapi-streaming'
       ],
     entry_points={
         'console_scripts': ['resup=resup.resup:main']
