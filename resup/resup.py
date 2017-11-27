@@ -119,6 +119,16 @@ been uploaded.
                             'various temporary directories and files ' +
                             'potentially created (e.g. "_tar", "_gz"). ' +
                             'Default is to delete them.')
+        pa_put.add_argument('--resourcetype', type=str, metavar='RESOURCETYPE',
+                            help='The Resource Type attached to the upload. '
+                            'Choose one that applies to all uploaded files. '
+                            'Available are "Dataset", "Collection", "Text", '
+                            '"Image", "Audiovisual", "Software", "Sound", '
+                            '"GeospatialData", "Model", "Event", '
+                            '"InteractiveResource", "PhysicalObject", '
+                            '"Service", "Workflow", "Other". '
+                            'The default is "Collection", which is suited to '
+                            'describe heterogeneous sets of files.')
         
         # get subcommand
         pa_get = subparsers.add_parser('get', help='download ressources',
@@ -186,6 +196,7 @@ class Put(object):
         self.keepdummy = args['keepdummy']
         self.chksum = args['chksum']
         self.noclean = args['noclean']
+        self.resource_type = args['resourcetype']
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
                     for f in os.listdir(self.directory)
                     if os.path.isfile(os.path.normpath(
@@ -211,7 +222,7 @@ class Put(object):
             'citation': '',
             'description': '',
             'name': '',
-            'resource_type': 'Data_Set',
+            'resource_type': self.resource_type or 'Collection',
             'publication': False,
             'url': 'dummy'
         }
