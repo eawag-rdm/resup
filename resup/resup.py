@@ -105,12 +105,8 @@ been uploaded.
                             'The default is {} Mb.'.format(MAXFILESIZE / 2**20),
                             default=MAXFILESIZE)
         
-        pa_put.add_argument('--chksum', metavar='HASHDIGEST', default='sha1',
-                            choices=['sha1', 'sha256', 'false', 'False', 'FALSE'],
-                            help='The type of cryptographic hash used ' +
-                            'to calculate a checksum. Possible values ' +
-                            'are "sha1" (the default), "sha256" and ' +
-                            '"false" (for skipping checksum calculation).')
+        pa_put.add_argument('--nochksum', action='store_true',
+                             help='Do not calculate a cryptographic checksum')
 
         pa_put.add_argument('--keepdummy', action='store_true',
                             help='do not delete the ressource \'dummy\', if present, '+
@@ -194,7 +190,7 @@ class Put(object):
         self.tar = args['tar']
         self.maxsize = args['maxfilesize']
         self.keepdummy = args['keepdummy']
-        self.chksum = args['chksum']
+        self.nochksum = args['nochksum']
         self.noclean = args['noclean']
         self.resource_type = args['resourcetype']
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
@@ -274,9 +270,9 @@ class Put(object):
                 cur_partsfile.close()
             update_part_metadata(filename)
 
-    def _chksum(self, typ):
+    def _chksum(self):
         for filename in self.metadata.keys():
-            hash_sha = eval('hashlib.{}()'.format(typ))
+            hash_sha = hashlib.sha256()
             print "Calculating checksum for {} ...".format(filename)
             t0 = time.time()
             with open(filename, 'rb') as f:
@@ -285,7 +281,7 @@ class Put(object):
             digest = hash_sha.hexdigest()
             deltat = time.time() - t0
             print "    time: {} seconds".format(deltat)
-            print '    {}: {}'.format(typ, digest)
+            print '    {}: {}'.format('sha256', digest)
             self.metadata[filename]['hash'] = digest
 
     def _gnuzip(self):
@@ -337,8 +333,8 @@ class Put(object):
         if self.tar:
             self._tar()
         self._split_files()
-        if self.chksum.lower() != 'false':
-            self._chksum(self.chksum)
+        if not self.nochksum:
+            self._chksum()
         self._upload()
         if not self.keepdummy:
             del_resources({'pkg_name': self.pkg_name,
