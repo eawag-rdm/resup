@@ -216,11 +216,10 @@ class Put(object):
         default_meta = {
             'package_id': self.pkg_name,
             'citation': '',
-            'description': '',
             'name': '',
             'resource_type': self.resource_type or 'Collection',
-            'publication': False,
-            'url': 'dummy'
+            'url': 'dummy',
+            'restricted_level': 'public'
         }
         metadict = dict(default_meta)
         metadict.update({'name': os.path.basename(fn)})
