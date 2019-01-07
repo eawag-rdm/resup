@@ -14,9 +14,13 @@ import sys
 import os
 import io
 import stat
+import time
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 HOST = 'https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch'
-MAXFILESIZE = 4 * 2**30 # max filesize: 4Gb
+MAXFILESIZE = 5 * 2**30 # max filesize: 5Gb
 CHUNKSIZE = 4 * 2**10   # for tuning
 
 class Connection(object):
@@ -314,9 +318,12 @@ class Put(object):
             self.metadata[res]['size'] = os.stat(res).st_size
             print "uploading {} ({})".format(res, self.metadata[res]['size'])
             print self.metadata[res]
-            self.connection.call_action('resource_create', self.metadata[res],
-                                        files={'upload': open(res, 'rb')},
-                                        progress=progressbar.mkprogress, requests_kwargs={'verify': False})
+            time0 = time.time()
+            self.connection.call_action(
+                'resource_create', self.metadata[res],
+                files={'upload': open(res, 'rb')},
+                progress=progressbar.mkprogress, requests_kwargs={'verify': False})
+            print('total time: {} s'.format(time.time()-time0))
 
     def _clean(self):
         if self.noclean:
@@ -517,10 +524,12 @@ def list_packages(args):
                              {'permission': 'update_dataset'}, requests_kwargs={'verify': False})
     oids = [o['id'] for o in orgas]
     searchquery = '('+' OR '.join(['owner_org:{}'.format(oid) for oid in oids]) + ')'
-    res = conn.call_action('package_search', {'q': searchquery,
-                                              'include_drafts': True,
-                                              'rows': 1000,
-                                              'include_private': True}, requests_kwargs={'verify': False})['results']
+    res = conn.call_action('package_search',
+                           {'q': searchquery,
+                            'include_drafts': True,
+                            'rows': 1000,
+                            'include_private': True},
+                           requests_kwargs={'verify': False})['results']
     pkgs = [p['name'] for p in res]
     return(pkgs)
 
