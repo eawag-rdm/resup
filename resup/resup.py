@@ -195,6 +195,7 @@ class Put(object):
         self.maxsize = args['maxfilesize']
         self.keepdummy = args['keepdummy']
         self.nochksum = args['nochksum']
+        self.hashtype = 'sha256'
         self.noclean = args['noclean']
         self.resource_type = args['resourcetype']
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
@@ -221,12 +222,14 @@ class Put(object):
             'package_id': self.pkg_name,
             'citation': '',
             'name': '',
-            'resource_type': self.resource_type or 'Collection',
+            'resource_type': self.resource_type or 'Dataset',
             'url': 'dummy',
             'restricted_level': 'public'
         }
         metadict = dict(default_meta)
         metadict.update({'name': os.path.basename(fn)})
+        if not self.nochksum:
+            metadict.update({'hashtype': self.hashtype})
         return metadict
 
     
