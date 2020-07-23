@@ -71,61 +71,79 @@ The other version was built on a fairly modern Debian 4.6.
 
 ## Usage:
 
-    resup [-h] {put,get,list,del} ...
+	resup [-h] {put,get,list,del} ...
 
-    positional arguments:
+	Batch upload of resources to data package in CKAN.
+	Batch download and deletion from data package in CKAN.
+
+	resup handles compression, creation of a tar-archive,
+	checksumming, splitting of large files for upload, and
+	re-assemblage of thusly splitted files upon download.
+
+	Resources to be downloaded or deleted can be specified
+	by providing a regular expression to select resource names.
+
+	positional arguments:
 	  {put,get,list,del}  subcommands
-		  put               upload ressources
-		  get               download ressources
-		  list              list your packages
-		  del               delete resources
+	    put               upload ressources
+	    get               download ressources
+	    list              list your packages
+	    del               delete resources
 
-    optional arguments:
-    -h, --help          show this help message and exit
+	optional arguments:
+	  -h, --help          show this help message and exit
 
 resup {[put](#user-content-put) | [get](#user-content-put) | [list](#user-content-list) | [del](#user-content-del)} -h for specific help on subcommands.
 
 -------
 <a id="put"></a>
 
-	   usage: resup put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
-	                    [--maxfilesize MAXFILESIZE] [--chksum HASHDIGEST]
-	                    [--keepdummy] [--noclean]
-	                    PACKAGENAME [DIRECTORY] [RESOURCES]
+	usage: resup put [-h] [-s SERVER] [-k API_KEY] [--tar] [--gz]
+	                 [--maxfilesize MAXFILESIZE] [--nochksum] [--keepdummy]
+	                 [--noclean] [--resourcetype RESOURCETYPE] [--upload_empty]
+	                 PACKAGENAME [DIRECTORY] [RESOURCES]
 
-	   Upload a batch of files as resources to CKAN.
+	Upload a batch of files as resources to CKAN.
 
-	   positional arguments:
-	     PACKAGENAME           Name of the data package
-	     DIRECTORY             The directory containing the ressources to be
-	                           uploaded. Default is the current working directory.
-	                           Subdirectories are ignored.
-	     RESOURCES             A regular expression that matches the resources to be
-	                           uploaded, e.g. ".*" (the default)
+	positional arguments:
+	  PACKAGENAME           Name of the data package
+	  DIRECTORY             The directory containing the ressources to be
+	                        uploaded. Default is the current working directory.
+	                        Subdirectories are ignored.
+	  RESOURCES             A regular expression that matches the resources to be
+	                        uploaded, e.g. ".*" (the default)
 
-	   optional arguments:
-	     -h, --help            show this help message and exit
-	     -s SERVER             CKAN server (default is https://eaw-ckan-
-	                           dev1.eawag.wroot.emp-eaw.ch)
-	     -k API_KEY            Your API-key. If omitted, the environment variable
-	                           'CKAN_APIKEY' will be used.
-	     --tar                 create a tar archive
-	     --gz                  gzip the file(s) before upload
-	     --maxfilesize MAXFILESIZE
-	                           Maximum filesize (in bytes) for upload. Larger files
-	                           will be split into parts <= MAXFILESIZE. The default
-	                           is 4096 Mb.
-	     --chksum HASHDIGEST   The type of cryptographic hash used to calculate a
-	                           checksum. Possible values are "sha1" (the default),
-	                           "sha256" and "false" (for skipping checksum
-	                           calculation).
-	     --keepdummy           do not delete the ressource 'dummy', if present, from
-	                           package. The default is to delete it.
-	     --noclean             Keep the various temporary directories and files
-	                           potentially created (e.g. "_tar", "_gz"). Default is
-	                           to delete them.
+	optional arguments:
+	  -h, --help            show this help message and exit
+	  -s SERVER             CKAN server (default is http://eaw-ckan-
+	                        prod1.eawag.wroot.emp-eaw.ch)
+	  -k API_KEY            Your API-key. If omitted, the environment variable
+	                        'CKAN_APIKEY' will be used.
+	  --tar                 create a tar archive
+	  --gz                  gzip the file(s) before upload
+	  --maxfilesize MAXFILESIZE
+	                        Maximum filesize (in bytes) for upload. Larger files
+	                        will be split into parts <= MAXFILESIZE. The default
+	                        is 5120 Mb.
+	  --nochksum            Do not calculate a cryptographic checksum
+	  --keepdummy           do not delete the ressource 'dummy', if present, from
+	                        package. The default is to delete it.
+	  --noclean             Keep the various temporary directories and files
+	                        potentially created (e.g. "_tar", "_gz"). Default is
+	                        to delete them.
+	  --resourcetype RESOURCETYPE
+	                        The Resource Type attached to the upload. Choose one
+	                        that applies to all uploaded files. Available are
+	                        "Dataset", "Collection", "Text", "Image",
+	                        "Audiovisual", "Software", "Sound", "GeospatialData",
+	                        "Model", "Event", "InteractiveResource",
+	                        "PhysicalObject", "Service", "Workflow", "Other". The
+	                        default is "Collection", which is suited to describe
+	                        heterogeneous sets of files.
+	  --upload_empty        upload empty files instead f the real resources.
 
 ------
+
 <a id="list"></a>
 
     resup get [-h] [-s SERVER] [-k API_KEY] PACKAGENAME [DIRECTORY] [RESOURCES]
