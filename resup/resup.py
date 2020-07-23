@@ -19,7 +19,7 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-HOST = 'https://eaw-ckan-dev1.eawag.wroot.emp-eaw.ch'
+HOST = 'http://eaw-ckan-prod1.eawag.wroot.emp-eaw.ch'
 MAXFILESIZE = 5 * 2**30 # max filesize: 5Gb
 CHUNKSIZE = 4 * 2**10   # for tuning
 
@@ -129,6 +129,8 @@ been uploaded.
                             '"Service", "Workflow", "Other". '
                             'The default is "Collection", which is suited to '
                             'describe heterogeneous sets of files.')
+        pa_put.add_argument('--upload_empty', action='store_true',
+                            help='upload empty files instead f the real resources.')
         
         # get subcommand
         pa_get = subparsers.add_parser('get', help='download ressources',
@@ -198,6 +200,8 @@ class Put(object):
         self.hashtype = 'sha256'
         self.noclean = args['noclean']
         self.resource_type = args['resourcetype']
+        self.upload_empty = args['upload_empty']
+        
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
                     for f in os.listdir(self.directory)
                     if os.path.isfile(os.path.normpath(
@@ -210,6 +214,7 @@ class Put(object):
                               if re.match('.*\.(yaml|yml)', f)]
         self.metadata = {f: self._mk_meta_default(f) for f in self.resourcefiles}
         self.partfiles = {}
+        self.id_to_filename = {}
 
     def _checkdir(self):
         if os.path.exists(self.directory):
@@ -322,11 +327,18 @@ class Put(object):
             print "uploading {} ({})".format(res, self.metadata[res]['size'])
             print self.metadata[res]
             time0 = time.time()
-            self.connection.call_action(
+            if self.upload_empty:
+                files = {'upload': io.StringIO(u'DUMMY')}
+            else:
+                files={'upload': open(res, 'rb')}
+            upload_result = self.connection.call_action(
                 'resource_create', self.metadata[res],
-                files={'upload': open(res, 'rb')},
+                files=files,
                 progress=progressbar.mkprogress, requests_kwargs={'verify': False})
             print('total time: {} s'.format(time.time()-time0))
+            # record resource id / filename mapping
+            if self.upload_empty: 
+                self.id_to_filename.update({res: upload_result['id']})
 
     def _clean(self):
         if self.noclean:
@@ -349,6 +361,8 @@ class Put(object):
             del_resources({'pkg_name': self.pkg_name,
                            'connection': self.connection,
                            'resources': 'dummy'})
+        if self.upload_empty:
+            print(self.id_to_filename)
         self._clean()
 
 # ### END of Put() ##########################################
