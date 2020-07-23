@@ -19,7 +19,7 @@ by providing a regular expression to select resource names.
 See [Usage](#usage)
 
 
-##Installation:
+## Installation:
 
 [From Source](#srcinstall) | [Windows](#package-for-windows) | [Linux](#linstall)
 
