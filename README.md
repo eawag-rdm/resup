@@ -39,6 +39,8 @@ pip install --process-dependency-links git+https://github.com/eawag-rdm/resup.gi
 
 ### Package for Windows
 
+**ATTENTION: The pre-built packages are not updated reularily and might be out of dat. Always prefer the [Installation from source](#srcinstall)!**
+
 We provide an installer for Windows (tested with Win7). Installation does **not** require administrator privileges.
 
 1. Download https://github.com/eawag-rdm/resup/raw/master/WindowsInstaller/resup_setup.exe.
@@ -50,6 +52,8 @@ You can access the program as `resup` via `cmd.exe` or `powershell.exe` from any
 <a id="linstall">
 
 ### Package for Linux
+
+**ATTENTION: The pre-built packages are not updated reularily and might be out of dat. Always prefer the [Installation from source](#srcinstall)!**
 
 We provide packaged versions of resup that do not require a Python installation.
 
