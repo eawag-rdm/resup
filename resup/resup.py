@@ -284,8 +284,10 @@ class Put(object):
             update_part_metadata(filename)
 
     def _chksum(self):
-        allmetafile = os.path.join(self.checksumsdir or '', "allchecksums.pkl")
+        checksumsdir = os.path.join(self.directory, '_checksums')
+        allmetafile = os.path.join(checksumsdir, "allchecksums.pkl")
         if os.path.exists(allmetafile):
+            print("loading existing checksums")
             oldmeta = pickle.load(open(allmetafile, "r"))
         for filename in self.metadata.keys():
             try:
@@ -304,8 +306,7 @@ class Put(object):
                 self.metadata[filename]['hash'] = digest
             else:
                 print "Found pre-calculated checksum for {}.".format(filename)
-            
-        self.checksumsdir = os.path.join(self.directory, '_checksums')
+
         if not os.path.exists(checksumsdir):
             os.mkdir(checksumsdir)
         with open(os.path.join(checksumsdir, "allchecksums.pkl"), "w") as f:
