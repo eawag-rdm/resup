@@ -16,6 +16,7 @@ import io
 import stat
 import time
 import urllib3
+import cpickle
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -294,6 +295,11 @@ class Put(object):
             print "    time: {} seconds".format(deltat)
             print '    {}: {}'.format('sha256', digest)
             self.metadata[filename]['hash'] = digest
+        checksumsdir = os.path.join(self.directory, '_checksums')
+        if not os.path.exists(checksumsdir):
+            os.mkdir(checksumsdir)
+        with open(os.path.join(checksumsdir, "allchecksums.pkl"), "w") as f:
+            cpickle.dump(self.metadata, f)
 
     def _gnuzip(self):
         gzdir = os.path.join(self.directory, '_gz')
