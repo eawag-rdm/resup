@@ -202,6 +202,7 @@ class Put(object):
         self.noclean = args['noclean']
         self.resource_type = args['resourcetype']
         self.upload_empty = args['upload_empty']
+        self.checksumsdir = False
         
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
                     for f in os.listdir(self.directory)
@@ -283,19 +284,28 @@ class Put(object):
             update_part_metadata(filename)
 
     def _chksum(self):
+        allmetafile = os.path.join(self.checksumsdir or '', "allchecksums.pkl")
+        if os.path.exists(allmetafile):
+            oldmeta = pickle.load(open(allmetafile, "r"))
         for filename in self.metadata.keys():
-            hash_sha = hashlib.sha256()
-            print "Calculating checksum for {} ...".format(filename)
-            t0 = time.time()
-            with open(filename, 'rb') as f:
-                for chunk in iter(lambda: f.read(8192), b''):
-                    hash_sha.update(chunk)
-            digest = hash_sha.hexdigest()
-            deltat = time.time() - t0
-            print "    time: {} seconds".format(deltat)
-            print '    {}: {}'.format('sha256', digest)
-            self.metadata[filename]['hash'] = digest
-        checksumsdir = os.path.join(self.directory, '_checksums')
+            try:
+                self.metadata[filename]['hash'] = oldmeta[filename]['hash']
+            except NameError:
+                hash_sha = hashlib.sha256()
+                print "Calculating checksum for {} ...".format(filename)
+                t0 = time.time()
+                with open(filename, 'rb') as f:
+                    for chunk in iter(lambda: f.read(8192), b''):
+                        hash_sha.update(chunk)
+                digest = hash_sha.hexdigest()
+                deltat = time.time() - t0
+                print "    time: {} seconds".format(deltat)
+                print '    {}: {}'.format('sha256', digest)
+                self.metadata[filename]['hash'] = digest
+            else:
+                print "Found pre-calculated checksum for {}.".format(filename)
+            
+        self.checksumsdir = os.path.join(self.directory, '_checksums')
         if not os.path.exists(checksumsdir):
             os.mkdir(checksumsdir)
         with open(os.path.join(checksumsdir, "allchecksums.pkl"), "w") as f:
