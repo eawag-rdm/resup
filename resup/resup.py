@@ -16,7 +16,7 @@ import io
 import stat
 import time
 import urllib3
-import cpickle
+import cPickle as pickle
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -299,7 +299,7 @@ class Put(object):
         if not os.path.exists(checksumsdir):
             os.mkdir(checksumsdir)
         with open(os.path.join(checksumsdir, "allchecksums.pkl"), "w") as f:
-            cpickle.dump(self.metadata, f)
+            pickle.dump(self.metadata, f)
 
     def _gnuzip(self):
         gzdir = os.path.join(self.directory, '_gz')
