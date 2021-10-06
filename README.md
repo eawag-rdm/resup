@@ -4,8 +4,6 @@
 
 -------
 
-
-
 + Batch upload of resources to data package in CKAN.
 + Batch download and deletion from data package in CKAN.
 
@@ -31,11 +29,21 @@ See [Usage](#usage)
 **Recommendation:** Install into a *virtual environment*
 
 ```
-virtualenv venv
-source venv/bin/activate
-pip install --process-dependency-links git+https://github.com/eawag-rdm/resup.git
+git clone https://github.com/eawag-rdm/resup
+cd resup
+virtualenv -p python2 venv2
+. venv2/bin/activate
+pip install -r requirements.txt 
+python setup.py develop
+```
+
+For convenient usage, alias the script in the virtualenv. With the virtualenv activated do:
 
 ```
+echo "alias resup='$(which resup)'" >>~/.bash_aliases
+. ~/.bash_aliases
+```
+Now you can call `resup` without activating the virtualenv.
 
 ### Package for Windows
 
