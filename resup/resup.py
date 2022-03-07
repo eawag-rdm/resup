@@ -202,7 +202,8 @@ class Put(object):
     def __init__(self, args):
         self.pkg_name = args['pkg_name']
         self.directory = os.path.normpath(args['directory'])
-        self._checkdir()
+        failmsg = 'Upload directory "{}" doesn\'t exist. Aborting.'.format(self.directory)
+        self._checkdir(self.directory, failmsg)
         self.resources = args['resources']
         self.connection = args['connection']
         self.gz = args['gz']
@@ -215,6 +216,8 @@ class Put(object):
         self.resource_type = args['resourcetype']
         self.upload_empty = args['upload_empty']
         self.tmpdir = args['tmpdir']
+        failmsg = 'Temp-directory "{}" doesn\'t exist. Aborting.'.format(self.tmpdir)
+        self._checkdir(self.tmpdir, failmsg)
         self.checksumsdir = False
         
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
@@ -232,10 +235,10 @@ class Put(object):
         self.id_to_filename = {}
 
 
-    def _checkdir(self):
-        if os.path.exists(self.directory):
+    def _checkdir(self, directory, failmsg):
+        if os.path.exists(directory):
                 return()
-        print 'Upload directory {} doesn\'t exist.Aborting.'.format(self.directory)
+        print(failmsg)
         sys.exit(1)
 
     def _mk_meta_default(self, fn):
@@ -276,7 +279,7 @@ class Put(object):
             del self.metadata[filename]
 
         chunksize = CHUNKSIZE
-        partsdir = os.path.join(self.directory, '_parts')
+        partsdir = os.path.join(self.tmpdir, '_parts')
         if not os.path.exists(partsdir):
             os.mkdir(partsdir)
         
@@ -298,7 +301,7 @@ class Put(object):
             update_part_metadata(filename)
 
     def _chksum(self):
-        checksumsdir = os.path.join(self.directory, '_checksums')
+        checksumsdir = os.path.join(self.tmpdir, '_checksums')
         allmetafile = os.path.join(checksumsdir, "allchecksums.pkl")
         if os.path.exists(allmetafile):
             print("loading existing checksums")
@@ -323,11 +326,11 @@ class Put(object):
 
         if not os.path.exists(checksumsdir):
             os.mkdir(checksumsdir)
-        with open(os.path.join(checksumsdir, "allchecksums.pkl"), "w") as f:
+        with open(allmetafile, "w") as f:
             pickle.dump(self.metadata, f)
 
     def _gnuzip(self):
-        gzdir = os.path.join(self.directory, '_gz')
+        gzdir = os.path.join(self.tmpdir, '_gz')
         if not os.path.exists(gzdir):
             os.mkdir(gzdir)
         for f in self.metadata.keys():
@@ -340,7 +343,7 @@ class Put(object):
             del self.metadata[f]
 
     def _tar(self):
-        tardir = os.path.join(self.directory, '_tar')
+        tardir = os.path.join(self.tmpdir, '_tar')
         if not os.path.exists(tardir):
             os.mkdir(tardir)
         fn_out = os.path.join(tardir,
@@ -374,7 +377,7 @@ class Put(object):
     def _clean(self):
         if self.noclean:
             return()
-        for d in [os.path.join(self.directory, tmp)
+        for d in [os.path.join(self.tmpdir, tmp)
                   for tmp in ['_gz', '_parts', '_tar']]:
             if os.path.exists(d):
                 shutil.rmtree(d)
