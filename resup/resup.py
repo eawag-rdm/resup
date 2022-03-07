@@ -88,6 +88,7 @@ been uploaded.
                                        parents=[papa],
                                        description='Upload a batch of files ' +
                                        'as resources to CKAN.')
+
         pa_put.add_argument('pkg_name', metavar='PACKAGENAME', type=str,
                             help='Name of the data package')
   
@@ -96,12 +97,14 @@ been uploaded.
                             help='The directory containing the ressources '+
                             'to be uploaded. Default is the current working ' +
                             'directory. Subdirectories are ignored.')
+
         pa_put.add_argument('resources', metavar='RESOURCES', type=str, nargs='?',
                             default='.*',
                             help='A regular expression that matches the resources ' +
                             'to be uploaded, e.g. \".*\" (the default)')
 
         pa_put.add_argument('--tar', action='store_true', help='create a tar archive')
+
         pa_put.add_argument('--gz', action='store_true', help='gzip the file(s) before upload')
 
         pa_put.add_argument('--maxfilesize', type=float, metavar='MAXFILESIZE',
@@ -109,17 +112,19 @@ been uploaded.
                             'will be split into parts <= MAXFILESIZE. ' +
                             'The default is {} Mb.'.format(MAXFILESIZE / 2**20),
                             default=MAXFILESIZE)
-        
+
         pa_put.add_argument('--nochksum', action='store_true',
                              help='Do not calculate a cryptographic checksum')
 
         pa_put.add_argument('--keepdummy', action='store_true',
                             help='do not delete the ressource \'dummy\', if present, '+
                             'from package. The default is to delete it.')
+
         pa_put.add_argument('--noclean', action='store_true', help='Keep the ' +
                             'various temporary directories and files ' +
                             'potentially created (e.g. "_tar", "_gz"). ' +
                             'Default is to delete them.')
+
         pa_put.add_argument('--resourcetype', type=str, metavar='RESOURCETYPE',
                             help='The Resource Type attached to the upload. '
                             'Choose one that applies to all uploaded files. '
@@ -130,9 +135,16 @@ been uploaded.
                             '"Service", "Workflow", "Other". '
                             'The default is "Collection", which is suited to '
                             'describe heterogeneous sets of files.')
+
         pa_put.add_argument('--upload_empty', action='store_true',
                             help='upload empty files instead f the real resources.')
-        
+
+        pa_put.add_argument('--tmpdir', metavar='TMPDIR', type=str,
+                            default=os.curdir,
+                            help='The directory for temporary files, such as ' +
+                            'checksums and parts of files. Default is the ' +
+                            'current working directory.')
+
         # get subcommand
         pa_get = subparsers.add_parser('get', help='download ressources',
                                        parents=[papa],
@@ -202,6 +214,7 @@ class Put(object):
         self.noclean = args['noclean']
         self.resource_type = args['resourcetype']
         self.upload_empty = args['upload_empty']
+        self.tmpdir = args['tmpdir']
         self.checksumsdir = False
         
         allfiles = [os.path.normpath(os.path.join(self.directory, f))
@@ -217,6 +230,7 @@ class Put(object):
         self.metadata = {f: self._mk_meta_default(f) for f in self.resourcefiles}
         self.partfiles = {}
         self.id_to_filename = {}
+
 
     def _checkdir(self):
         if os.path.exists(self.directory):
