@@ -1,2 +1,2 @@
 requests[socks]
-git+https://github.com/eawag-rdm/ckanapi-streaming.git#egg=ckanapi-streaming
+git+https://github.com/eawag-rdm/ckanapi-streaming.git#egg=ckanapi
