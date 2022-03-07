@@ -96,7 +96,12 @@ been uploaded.
                             default=os.curdir,
                             help='The directory containing the ressources '+
                             'to be uploaded. Default is the current working ' +
-                            'directory. Subdirectories are ignored.')
+                            'directory. Subdirectories are ignored. Files in this ' +
+                            'directory and auto-generated subdirectories (' +
+                            '"_tar", "_gz", "_parts", "_checksums") must not ' +
+                            'be modified after it has been ' +
+                            'used as a source directory for resup for the '+
+                            'first time.')
 
         pa_put.add_argument('resources', metavar='RESOURCES', type=str, nargs='?',
                             default='.*',
@@ -143,7 +148,9 @@ been uploaded.
                             default=os.curdir,
                             help='The directory for temporary files, such as ' +
                             'checksums and parts of files. Default is the ' +
-                            'current working directory.')
+                            'current working directory. Using this ' +
+                            'option, you are responsible to keep track of ' +
+                            'which tmp-dir belongs to which upload-directory.')
 
         # get subcommand
         pa_get = subparsers.add_parser('get', help='download ressources',
