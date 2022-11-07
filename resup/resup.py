@@ -16,7 +16,7 @@ import io
 import stat
 import time
 import urllib3
-import cPickle as pickle
+import pickle as pickle
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -29,9 +29,9 @@ class Connection(object):
         try:
             apikey = args.get('k') or [os.environ['CKAN_APIKEY']]
         except KeyError:
-            print 'ERROR: No API key found. Either provide it with with the \'-k\' ' +\
+            print('ERROR: No API key found. Either provide it with with the \'-k\' ' +\
                 'option or set the environment variable \'CKAN_APIKEY\', e.g. ' +\
-                'in bash:\n\'export CKAN_APIKEY=xxxxxxxxxxxxxxxxxxxxx\''
+                'in bash:\n\'export CKAN_APIKEY=xxxxxxxxxxxxxxxxxxxxx\'')
             sys.exit(1)
         else:
             apikey = apikey[0]
@@ -275,7 +275,7 @@ class Put(object):
                                      os.path.basename(filename) +
                                      '.{:0=4}'.format(count))
             fpart = open(partsname, 'wb')
-            print "    writing new parts-file: {}".format(partsname)
+            print("    writing new parts-file: {}".format(partsname))
             self.partfiles[filename].append(partsname)
             return(fpart)
 
@@ -290,9 +290,9 @@ class Put(object):
         if not os.path.exists(partsdir):
             os.mkdir(partsdir)
         
-        for filename in [f for f in self.metadata.keys()
+        for filename in [f for f in list(self.metadata.keys())
                          if os.stat(f).st_size > self.maxsize]:
-            print "splitting {}".format(filename)
+            print("splitting {}".format(filename))
             count = 1
             cur_partsfile = newpartsfile(None, count)
             cur_size = 0
@@ -313,23 +313,23 @@ class Put(object):
         if os.path.exists(allmetafile):
             print("loading existing checksums")
             oldmeta = pickle.load(open(allmetafile, "r"))
-        for filename in self.metadata.keys():
+        for filename in list(self.metadata.keys()):
             try:
                 self.metadata[filename]['hash'] = oldmeta[filename]['hash']
             except NameError:
                 hash_sha = hashlib.sha256()
-                print "Calculating checksum for {} ...".format(filename)
+                print("Calculating checksum for {} ...".format(filename))
                 t0 = time.time()
                 with open(filename, 'rb') as f:
                     for chunk in iter(lambda: f.read(8192), b''):
                         hash_sha.update(chunk)
                 digest = hash_sha.hexdigest()
                 deltat = time.time() - t0
-                print "    time: {} seconds".format(deltat)
-                print '    {}: {}'.format('sha256', digest)
+                print("    time: {} seconds".format(deltat))
+                print('    {}: {}'.format('sha256', digest))
                 self.metadata[filename]['hash'] = digest
             else:
-                print "Found pre-calculated checksum for {}.".format(filename)
+                print("Found pre-calculated checksum for {}.".format(filename))
 
         if not os.path.exists(checksumsdir):
             os.mkdir(checksumsdir)
@@ -340,9 +340,9 @@ class Put(object):
         gzdir = os.path.join(self.tmpdir, '_gz')
         if not os.path.exists(gzdir):
             os.mkdir(gzdir)
-        for f in self.metadata.keys():
+        for f in list(self.metadata.keys()):
             fn_out = os.path.join(gzdir, os.path.basename(f) + '.gz')
-            print 'compressing {} ...'.format(f)
+            print('compressing {} ...'.format(f))
             with open(f, 'rb') as fin, gzip.open(fn_out, 'wb') as fout:
                 shutil.copyfileobj(fin, fout)
             self.metadata[fn_out] = self.metadata[f]
@@ -355,28 +355,28 @@ class Put(object):
             os.mkdir(tardir)
         fn_out = os.path.join(tardir,
                               os.path.basename(self.directory) +'.tar')
-        print 'Creating tar-archive: {}'.format(fn_out)
+        print('Creating tar-archive: {}'.format(fn_out))
         with tarfile.open(fn_out, 'w') as tf:
-            for f_in in self.metadata.keys():
-                print '    adding file {}'.format(f_in)
+            for f_in in list(self.metadata.keys()):
+                print('    adding file {}'.format(f_in))
                 tf.add(f_in)
         self.metadata = {fn_out: self._mk_meta_default(fn_out)}
 
     def _upload(self):
         for res in sorted(self.metadata.keys()):
             self.metadata[res]['size'] = os.stat(res).st_size
-            print "uploading {} ({})".format(res, self.metadata[res]['size'])
-            print self.metadata[res]
+            print("uploading {} ({})".format(res, self.metadata[res]['size']))
+            print(self.metadata[res])
             time0 = time.time()
             if self.upload_empty:
-                files = {'upload': io.StringIO(u'DUMMY')}
+                files = {'upload': io.StringIO('DUMMY')}
             else:
                 files={'upload': open(res, 'rb')}
             upload_result = self.connection.call_action(
                 'resource_create', self.metadata[res],
                 files=files,
                 progress=progressbar.mkprogress, requests_kwargs={'verify': False})
-            print('total time: {} s'.format(time.time()-time0))
+            print(('total time: {} s'.format(time.time()-time0)))
             # record resource id / filename mapping
             if self.upload_empty: 
                 self.id_to_filename.update({res: upload_result['id']})
@@ -403,7 +403,7 @@ class Put(object):
                            'connection': self.connection,
                            'resources': 'dummy'})
         if self.upload_empty:
-            print(self.id_to_filename)
+            print((self.id_to_filename))
         self._clean()
 
 # ### END of Put() ##########################################
@@ -422,8 +422,8 @@ class Get(object):
         try:
             self.resources = re.compile(self.resources)
         except:
-            print('It seems "{}" is not a valid regular expression.'
-                  .format(self.resources))
+            print(('It seems "{}" is not a valid regular expression.'
+                  .format(self.resources)))
             print('Aborting!')
             sys.exit(1)
 
@@ -443,7 +443,7 @@ class Get(object):
         res = self.conn.call_action('package_show', {'id': self.pkg_name}, requests_kwargs={'verify': False})
         res = res.get('resources')
         if not res:
-            print 'No resources in package {}. Aborting.'.format(self.pkg_name)
+            print('No resources in package {}. Aborting.'.format(self.pkg_name))
             sys.exit(1)
         return(res)
 
@@ -471,7 +471,7 @@ class Get(object):
                     r['name'] += str(uuid.uuid4())
                 self.downloaddict[r['name']] = [resnew]
                 
-        for k in self.downloaddict.keys():
+        for k in list(self.downloaddict.keys()):
             v = sorted(self.downloaddict[k],
                        lambda x,y: x-y, lambda x: x.get('idx'))
             self.downloaddict[k] = v
@@ -481,12 +481,12 @@ class Get(object):
         def existingfile(path, name):
             if os.path.exists(path):
                 if not self.yes:
-                    answer = raw_input('File {} exists. Overwrite? [Y/N] '
+                    answer = input('File {} exists. Overwrite? [Y/N] '
                                        .format(path))
                 else:
                     answer = 'yes'
                 if answer not in ['y', 'Y', 'yes', 'Yes', 'YES']:
-                    print 'Skipping download of {}'.format(name)
+                    print('Skipping download of {}'.format(name))
                     return True
                 else:
                     os.remove(path)
@@ -507,23 +507,23 @@ class Get(object):
 
         def validate_part(digest, part, partbase):
             if digest != part['hash']:
-                print 'Checksum validation failed for {}.'.format(partbase)
-                print digest
-                print part['hash']
+                print('Checksum validation failed for {}.'.format(partbase))
+                print(digest)
+                print(part['hash'])
                 if not self.yes:
-                    ans = raw_input('Retry download? [Y/N] ')
+                    ans = input('Retry download? [Y/N] ')
                 else:
                     return False
                 if ans in ['y', 'Y', 'yes', 'Yes', 'YES']:
                     return True
                 else:
-                    print 'Ignoring failed download of {}!'.format(partbase)
+                    print('Ignoring failed download of {}!'.format(partbase))
                     return False
             else:
-                print 'Checksum validation for {} passed.'.format(partbase)
+                print('Checksum validation for {} passed.'.format(partbase))
                 return False
         
-        for f_out_base in self.downloaddict.keys():
+        for f_out_base in list(self.downloaddict.keys()):
             f_out = os.path.join(self.directory, f_out_base)
             if existingfile(f_out, f_out_base):
                 continue
@@ -533,7 +533,7 @@ class Get(object):
                 while idx < len(self.downloaddict[f_out_base]):
                     part = self.downloaddict[f_out_base][idx]
                     partbase = os.path.basename(part['url'])
-                    print 'Downloading {} ...'.format(partbase)
+                    print('Downloading {} ...'.format(partbase))
                     digest = dl_part(fout, part)
                     if validate_part(digest, part, partbase) :
                         continue
@@ -544,7 +544,7 @@ class Get(object):
         #print vars(self)
         res = self._getresources()
         res = self._filterresources(res)
-        print "Pattern: {}".format(self.resources.pattern)
+        print("Pattern: {}".format(self.resources.pattern))
         self._downloaddict(res)
         self._download()
         
@@ -557,8 +557,8 @@ def del_resources(args):
     try:
         resources = re.compile(resources)
     except:
-        print('It seems "{}" is not a valid regular expression.'
-              .format(resources))
+        print(('It seems "{}" is not a valid regular expression.'
+              .format(resources)))
         print('Aborting!')
         sys.exit(1)
     check_package(args)
@@ -566,7 +566,7 @@ def del_resources(args):
     allres = [(res['name'], res['id']) for res in pkg['resources']]
     delres = [(r[0], r[1]) for r in allres if re.match(resources, r[0])]
     for r in delres:
-        print "DELETING Resources: {}".format(r[0])
+        print("DELETING Resources: {}".format(r[0]))
         conn.call_action('resource_delete', {'id': r[1]}, requests_kwargs={'verify': False})
 
 def check_package(args):
@@ -608,7 +608,7 @@ def main():
     if args['subcmd'] == 'list':
         pkgnames = list_packages(args)
         for p in pkgnames:
-            print p
+            print(p)
 
 if __name__ == '__main__':
     main()
