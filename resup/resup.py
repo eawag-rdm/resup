@@ -312,7 +312,7 @@ class Put(object):
         allmetafile = os.path.join(checksumsdir, "allchecksums.pkl")
         if os.path.exists(allmetafile):
             print("loading existing checksums")
-            oldmeta = pickle.load(open(allmetafile, "r"))
+            oldmeta = pickle.load(open(allmetafile, "rb"))
         for filename in list(self.metadata.keys()):
             try:
                 self.metadata[filename]['hash'] = oldmeta[filename]['hash']
@@ -333,7 +333,7 @@ class Put(object):
 
         if not os.path.exists(checksumsdir):
             os.mkdir(checksumsdir)
-        with open(allmetafile, "w") as f:
+        with open(allmetafile, "wb") as f:
             pickle.dump(self.metadata, f)
 
     def _gnuzip(self):
