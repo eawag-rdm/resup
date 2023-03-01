@@ -51,10 +51,11 @@ Now you can call `resup` without activating the virtualenv.
 
 Alternative Anaconda installation for windows. Installation does **not** require administrator privileges.
 
-1. Install Anaconda - **add anaconda to PATH** (ignore the red text warnings)
+1. Install Anaconda - when prompted **add anaconda to PATH** (ignore the red text warnings)
 2. install git (preferably use the barramundi kiosk)
 
 open a cmd.exe window
+	
 3. cerate a conda environment for resup and install as above
 
 ```
