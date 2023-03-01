@@ -1,6 +1,6 @@
 # resup
 
-[![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup) Python 2.7, PyPy
+[![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup) Python 3.11, PyPy
 
 -------
 
@@ -25,14 +25,14 @@ See [Usage](#usage)
 
 ### Installation from source
 
-**Required:** Python 2.7 or PyPy   
+**Required:** Python >3.5   
 **Recommendation:** Install into a *virtual environment*
 
 ```
 git clone https://github.com/eawag-rdm/resup
 cd resup
-virtualenv -p python2 venv2
-. venv2/bin/activate
+virtualenv -p python venv
+. venv/bin/activate
 pip install -r requirements.txt 
 python setup.py develop
 ```
@@ -47,15 +47,29 @@ Now you can call `resup` without activating the virtualenv.
 
 ### Package for Windows
 
-**ATTENTION: The pre-built packages are not updated regularily and might be out of date. Always prefer the [Installation from source](#srcinstall)!**
+**ATTENTION: The pre-built package for windows is currently non-functional. Always prefer the [Installation from source](#srcinstall)!**
 
-We provide an installer for Windows (tested with Win7). Installation does **not** require administrator privileges.
+Alternative Anaconda installation for windows. Installation does **not** require administrator privileges.
 
-1. Download https://github.com/eawag-rdm/resup/raw/master/WindowsInstaller/resup_setup.exe.
-2. Run it.
-3. Follow instructions and allow the installer to reboot your computer.
+1. Install Anaconda - **add anaconda to PATH** (ignore the red text warnings)
+2. install git (preferably use the barramundi kiosk)
 
-You can access the program as `resup` via `cmd.exe` or `powershell.exe` from any location.
+open a cmd.exe window
+3. cerate a conda environment for resup and install as above
+
+```
+git clone https://github.com/eawag-rdm/resup
+cd resup
+conda create -n resupenv python=3.11 
+conda activate resupenv
+pip install -r requirements.txt 
+python setup.py develop
+```
+
+
+Before using resup *EACH TIME* you need to activate the conda environment
+```conda activate resupenv```
+You can access the program as `resup` via `cmd.exe` from any location.
 
 <a id="linstall">
 
