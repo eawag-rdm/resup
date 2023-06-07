@@ -433,8 +433,9 @@ class Get(object):
                                  'testwriteable_64747354612458526831012')
         try:
             with open(testfile, 'wb') as test:
-                test.write('0')
-        except:
+                test.write(b'0')
+        except Exception as e:
+            print(e)
             sys.exit('Can\'t write in {}. Aborting.'.format(self.directory))
         else:
             os.remove(testfile)
@@ -472,8 +473,7 @@ class Get(object):
                 self.downloaddict[r['name']] = [resnew]
                 
         for k in list(self.downloaddict.keys()):
-            v = sorted(self.downloaddict[k],
-                       lambda x,y: x-y, lambda x: x.get('idx'))
+            v = sorted(self.downloaddict[k], key=lambda x: x['idx'])
             self.downloaddict[k] = v
 
     def _download(self):
