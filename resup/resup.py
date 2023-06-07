@@ -433,6 +433,7 @@ class Get(object):
                                  'testwriteable_64747354612458526831012')
         try:
             with open(testfile, 'wb') as test:
+            #add bytes identifier for py3 compatibility
                 test.write(b'0')
         except Exception as e:
             print(e)
