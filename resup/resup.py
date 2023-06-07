@@ -84,7 +84,7 @@ been uploaded.
         subparsers = self.pa.add_subparsers(help='subcommands', dest='subcmd')
         
         # put subcommand
-        pa_put = subparsers.add_parser('put', help='upload ressources',
+        pa_put = subparsers.add_parser('put', help='upload resources',
                                        parents=[papa],
                                        description='Upload a batch of files ' +
                                        'as resources to CKAN.')
@@ -94,7 +94,7 @@ been uploaded.
   
         pa_put.add_argument('directory', metavar='DIRECTORY', type=str, nargs='?',
                             default=os.curdir,
-                            help='The directory containing the ressources '+
+                            help='The directory containing the resources '+
                             'to be uploaded. Default is the current working ' +
                             'directory. Subdirectories are ignored. Files in this ' +
                             'directory and auto-generated subdirectories (' +
@@ -122,7 +122,7 @@ been uploaded.
                              help='Do not calculate a cryptographic checksum')
 
         pa_put.add_argument('--keepdummy', action='store_true',
-                            help='do not delete the ressource \'dummy\', if present, '+
+                            help='do not delete the resource \'dummy\', if present, '+
                             'from package. The default is to delete it.')
 
         pa_put.add_argument('--noclean', action='store_true', help='Keep the ' +
@@ -153,7 +153,7 @@ been uploaded.
                             'which tmp-dir belongs to which upload-directory.')
 
         # get subcommand
-        pa_get = subparsers.add_parser('get', help='download ressources',
+        pa_get = subparsers.add_parser('get', help='download resources',
                                        parents=[papa],
                                        description='Bulk download '+
                                        'resources of a package in CKAN.')
@@ -167,7 +167,7 @@ been uploaded.
   
         pa_get.add_argument('directory', metavar='DIRECTORY', type=str, nargs='?',
                         default=os.curdir,
-                        help='Directory into which ressources are downloaded. ' +
+                        help='Directory into which resources are downloaded. ' +
                         'Default is the current working directory.')
         
         pa_get.add_argument('resources', metavar='RESOURCES', type=str, nargs='?',
