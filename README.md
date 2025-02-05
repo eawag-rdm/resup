@@ -1,3 +1,4 @@
+# This software project has been sunsetted is no longer maintained 
 # resup
 
 [![Build Status](https://travis-ci.org/eawag-rdm/resup.svg?branch=master)](https://travis-ci.org/eawag-rdm/resup) Python 3, PyPy
